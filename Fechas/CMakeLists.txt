@@ -3,7 +3,7 @@
 # Grado en Ingeniería Informática
 # Informática Básica
 #
-# @author Iván García González
+# @author Iván García Glez
 # @date 7 Enero 2021
 # @brief CMakeLists.txt modify
 # CMakeLists.txt defines the whole build
@@ -20,7 +20,7 @@
 cmake_minimum_required(VERSION 3.1)  # Mandatory
 
 # set the project name 
-project(Fechas                # Mandatory
+project(Fechas               # Mandatory
     VERSION 1.0
     DESCRIPTION "A simple CMake project for the Fechas application"
     LANGUAGES CXX)
@@ -40,8 +40,13 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 # tell cmake where to look for *.h files
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
+# create library " libtools "
+add_library(tools src/tools.cc)
+
 # Adds an executable target called "Fechas" to be built from the source files listed in the command invocation.
 add_executable(fechas.exe
     src/fecha.h
     src/fecha.cc
-    src/fechas.cc)
+    src/fechas.cc
+    src/tools.cc
+    src/tools.h)

@@ -18,3 +18,31 @@
   */
 
  #include "fecha.h"
+ #include "tools.h"
+
+int main(int argc, char* argv[]){
+  usage(argc, argv); //Uso del programa
+
+  std::string transforma_1 {argv[1]}, transforma_2 {argv[2]}, transforma_3 {argv[3]};
+  std::string transforma_N {argv[4]};
+  std::string ficheroSalida {argv[5]};
+  int dia = std::stoi(transforma_1);
+  int mes = std::stoi(transforma_2);
+  int allo = std::stoi(transforma_3);
+  int numero_repeticiones = std::stoi(transforma_N);
+
+  Fechas fecha;
+  fecha.SetDia(dia);
+  fecha.SetMes(mes);
+  fecha.SetAllo(allo);
+  fecha.SetFichero(ficheroSalida);
+
+  fecha.printFecha();
+
+  for (int i {0}; i < numero_repeticiones; i++){
+    fecha.siguienteFecha();
+    fecha.printFecha();
+  }
+  
+  return 0;
+}

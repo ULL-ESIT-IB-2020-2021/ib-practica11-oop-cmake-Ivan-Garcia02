@@ -16,3 +16,31 @@
   * @bug No hay bugs conocidos
   * @see https://github.com/ULL-ESIT-IB-2020-2021/IB-P11-Classes-CMake/blob/master/Classes-CMake.md
   */
+#include "fecha.h"
+
+///Imprime la fecha en el archivo elegido
+void Fechas::printFecha(){  
+  std::ofstream ficheroSalida {fichero_, std::ios::app};
+  ficheroSalida << dia_ << '/' << mes_ << '/' << allo_ << std::endl;
+}
+
+///Indica si un año es bisiesto
+void Fechas::esBisiesto(){
+  if((allo_ % 4 == 0) && (allo_ % 100 != 0) || (allo_ % 400 == 0)) //Condición de bisiesto
+    std::cout << allo_ << " Es Bisiesto" << std::endl;
+  else
+    std::cout << allo_ << " No es bisiesto" << std::endl;
+}
+
+///Cambien la fecha a la posterior
+void Fechas::siguienteFecha(){
+  dia_++;
+  if (dia_ > 31){
+    mes_++;
+    Fechas::SetDia(1);
+  }
+  if (mes_ > 12){
+    allo_++;
+    Fechas::SetMes(1);
+  }
+}

@@ -4,7 +4,7 @@
   * Grado en Ingeniería Informática
   * Informática Básica
   *
-  * @file fecha.h (declaraciones)
+  * @file tools.cc (funciones)
   * @author Iván García González alu0101388786@ull.edu.es
   * @date 7 Enero 2021
   * @brief Desarrolle una clase Fecha que permita representar y gestionar fechas. Incorpore en la clase los miembros de datos 
@@ -16,32 +16,26 @@
   * @bug No hay bugs conocidos
   * @see https://github.com/ULL-ESIT-IB-2020-2021/IB-P11-Classes-CMake/blob/master/Classes-CMake.md
   */
-#include <string>
-#include <iostream>
-#include <fstream>
+#include "tools.h"
 
-class Fechas {
- private:
-  int dia_{0};
-  int mes_{0};
-  int allo_{0};
-  std::string fichero_ {"sample.txt"};
+/**
+ * Uso del programa.
+ *
+ * @param valores de entrada argc y argv.
+ * @return nothing.
+ */
+void usage(int& argc, char* argv[]){ //Uso del programa  
+  if (argc == 2){
+    std::string parameter {argv [1]};
 
- public:
-  void SetDia(int valor) { 
-    dia_ = valor;
+    if (parameter == "--help"){
+      std::cout << khelptext << std::endl;
+      exit(EXIT_SUCCESS);
+    }
   }
-  void SetMes(int valor) { 
-    mes_ = valor;
+  else if (argc != 6){
+    std::cout << "Modo de uso: " <<argv[0] << " dd mm aa N fichero_salida.txt" << std::endl; 
+    std::cout << "Pruebe "<< argv[0] << " --help para más información." << std::endl;
+    exit(EXIT_SUCCESS);
   }
-  void SetAllo(int valor) { 
-    allo_ = valor;
-  }
-  void SetFichero(std::string ficheroSalida){
-    fichero_ = ficheroSalida;
-  }
-  void printFecha();
-  void esBisiesto();
-  void siguienteFecha();
-  
-};
+}
