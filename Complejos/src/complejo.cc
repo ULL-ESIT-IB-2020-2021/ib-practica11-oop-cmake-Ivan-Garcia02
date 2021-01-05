@@ -25,7 +25,26 @@ void Complejo::resta(Complejo complejo1, Complejo complejo2){ //resta dos objeto
   parteImaginaria_ = complejo1.parteImaginaria_ - complejo2.parteImaginaria_;
 }
 
-void Complejo::print(){ 
+void Complejo::multiplicacion(Complejo complejo1, Complejo complejo2){ //multiplica dos objetos complejos
+  parteReal_ = (complejo1.parteReal_ * complejo2.parteReal_) - (complejo1.parteImaginaria_ * complejo2.parteImaginaria_);
+  parteImaginaria_ = (complejo1.parteReal_ * complejo2.parteImaginaria_) + (complejo1.parteImaginaria_ * complejo2.parteReal_);
+}
+
+void Complejo::division(Complejo complejo1, Complejo complejo2){ //divide dos objetos complejos
+  int denominador = (pow(complejo2.parteReal_, 2)) + (pow(complejo2.parteImaginaria_, 2));
+  parteReal_ = (complejo1.parteReal_ * complejo2.parteReal_) + (complejo1.parteImaginaria_ * complejo2.parteImaginaria_);
+  parteImaginaria_ = (complejo1.parteImaginaria_ * complejo2.parteReal_) - (complejo1.parteReal_ * complejo2.parteImaginaria_);
+
+  print();
+  std::cout << "----------" << std::endl << "   " <<denominador << std::endl;
+}
+
+void Complejo::conjugado(){ //da el conjugado de un complejo y lo imprime en pantalla
+  parteImaginaria_ *= -1;
+  print();
+}
+
+void Complejo::print(){ //imprime en pantalla el numero complejo
   std::cout << parteReal_;
   if (parteImaginaria_ >= 0){
     std::cout << " + " << parteImaginaria_ << " i" << std::endl;

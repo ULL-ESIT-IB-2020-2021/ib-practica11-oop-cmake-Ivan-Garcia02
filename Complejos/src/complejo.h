@@ -16,6 +16,7 @@
 #ifndef COMPLEJO_H
 #define COMPLEJO_H
 #include <iostream>
+#include <cmath>
 
 class Complejo {
  private:
@@ -29,6 +30,9 @@ class Complejo {
   }
   void suma(Complejo complejo1, Complejo complejo2);
   void resta(Complejo complejo1, Complejo complejo2);
+  void multiplicacion(Complejo complejo1, Complejo complejo2);
+  void division(Complejo complejo1, Complejo complejo2);
+  void conjugado();
   void print();
 };
 

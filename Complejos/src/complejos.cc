@@ -20,10 +20,21 @@ int main(){
   Complejo complejo1{4, 5}, complejo2{7, -8};
   Complejo resultado{0, 0};
 
+  std::cout << "Suma de los complejo: " << std::endl;
   resultado.suma(complejo1, complejo2);
   resultado.print();
+  std::cout << "Resta de los complejo: "<< std::endl;
   resultado.resta(complejo1, complejo2);
   resultado.print();
+  std::cout << "Multiplicacion de los complejo: "<< std::endl;
+  resultado.multiplicacion(complejo1, complejo2);
+  resultado.print();
+   std::cout << "Division de los complejo: "<< std::endl;
+  resultado.division(complejo1, complejo2);
+
+  std::cout << "Conjugado del primer y segundo complejo:" << std::endl;
+  complejo1.conjugado();
+  complejo2.conjugado();
 
   return 0;
 }
