@@ -3,9 +3,9 @@
 # Grado en Ingeniería Informática
 # Informática Básica
 #
-# @author Iván García Glez
-# @date 7 Enero 2021
-# @brief CMakeLists.txt modify
+# @author F. de Sande
+# @date 18 Jun 2020
+# @brief CMakeLists.txt example
 # CMakeLists.txt defines the whole build
 # CMake reads CMakeLists.txt sequentially
 #
@@ -20,9 +20,9 @@
 cmake_minimum_required(VERSION 3.1)  # Mandatory
 
 # set the project name 
-project(Fechas               # Mandatory
+project(fecha                # Mandatory
     VERSION 1.0
-    DESCRIPTION "A simple CMake project for the Fechas application"
+    DESCRIPTION "A simple CMake project for the Fibonacci Sum application"
     LANGUAGES CXX)
 
 # specify the C++ standard
@@ -43,10 +43,49 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 # create library " libtools "
 add_library(tools src/tools.cc)
 
-# Adds an executable target called "Fechas" to be built from the source files listed in the command invocation.
-add_executable(fechas.exe
+# Adds an executable target called "fecha" to be built from the source files listed in the command invocation.
+add_executable(fecha
     src/fecha.h
     src/fecha.cc
-    src/fechas.cc
-    src/tools.cc
-    src/tools.h)
+    src/fechas.cc)
+
+# tell the linker to bind these objects together
+# It's important to place target_link_libraries after the add_executable and find_package lines, so all linked components are known.
+target_link_libraries(fecha tools)
+
+# Add expected compiler features to a target.
+target_compile_features(fecha PRIVATE cxx_std_14)
+
+# Add compile options to a target.
+target_compile_options(fecha PRIVATE -Wall -Wextra -Wpedantic)
+
+
+############################################################
+# Build doxygen from CMake script
+# https://stackoverflow.com/questions/34878276/build-doxygen-from-cmake-script
+# https://cmake.org/cmake/help/latest/module/FindDoxygen.html
+############################################################
+
+find_package(Doxygen)
+option(BUILD_DOCUMENTATION "Create and install the documentation (requires Doxygen)" ${DOXYGEN_FOUND})
+
+if(BUILD_DOCUMENTATION)
+    if(NOT DOXYGEN_FOUND)
+         message(FATAL_ERROR "Doxygen is needed to build the documentation.")
+    endif()
+
+    set(doxyfile_in ${CMAKE_CURRENT_SOURCE_DIR}/fibonacci.Doxyfile)
+    set(doxyfile ${CMAKE_CURRENT_BINARY_DIR}/doxyfile)
+
+    configure_file(${doxyfile_in} ${doxyfile} @ONLY)
+
+    message("Doxygen build started.")
+
+    add_custom_target(doc ALL
+                      COMMAND ${DOXYGEN_EXECUTABLE} ${doxyfile_in}
+                      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc
+                      COMMENT "Generating API documentation with Doxygen"
+                      VERBATIM)
+
+    #    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html DESTINATION     share/doc)
+endif()
